@@ -11,7 +11,7 @@ export default function App() {
   }, [])
   return (
     <div>
-      <p>{message}</p>
+      <p className="font-bold p-20 text-5xl">{message}</p>
     </div>
   )
 }
