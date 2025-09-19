@@ -3,9 +3,9 @@ import { useState, React, useEffect } from 'react';
 // import viteLogo from '/vite.svg'
 import './App.css';
 import { Button } from './components/ui/button';
-
 export default function App() {
    const [message, setMessage] = useState('');
+
    useEffect(() => {
       fetch('/api/info')
          .then((res) => res.json())
