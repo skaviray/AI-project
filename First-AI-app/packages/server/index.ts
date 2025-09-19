@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import OpenAI from 'openai';
 import z from 'zod';
 import {sendMessage} from './services/chats'
+import {chatController} from './controllers/chat.controller'
 dotenv.config();
 console.log(process.env.OPENAI_API_KEY)
 const app = express();
@@ -33,18 +34,7 @@ const chatSchema = z.object({
 })
 
 app.post("/api/chat", async (req: Request, res: Response) => {
-   const parseResult = chatSchema.safeParse(req.body)
-   if (!parseResult.success){
-      res.status(404).json(parseResult.error)
-      return
-   }
-   const {prompt, conversationId} = req.body
-   try {   
-   const response = await sendMessage(prompt, conversationId)
-   res.json({response: response.message})
-} catch(err) {
-   res.status(500).json({error: err.error ? err.error.message : "Failed to generate a response"})
-}
+   chatController(req, res)
 })
 
 app.listen(port, () => {
